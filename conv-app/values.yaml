@@ -46,11 +46,6 @@ rabbitmq:
     - AMQP_PASSWORD
     - AMQP_HOSTNAME
     - AMQP_QUEUE
-  secret:
-    exchange: test
-    user: rabbitmq
-    password: bddfg2dff234a
-    queue: convert
   limits:
     memory: "512Mi"
     cpu: "200m"
