@@ -19,13 +19,13 @@ spec:
             path: "/api"
             backend:
               service:
-                name: conv-api-service
+                name: {{ .Values.api.name }}-service
                 port:
-                  number: 3000
+                  number: {{ .Values.api.port }}
           - pathType: Prefix
             path: "/uploads"
             backend:
               service:
-                name: conv-api-service
+                name: {{ .Values.api.name }}-service
                 port:
-                  number: 3000
+                  number: {{ .Values.api.port }}

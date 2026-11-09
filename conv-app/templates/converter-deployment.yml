@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.converter.name }}-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: {{ .Values.converter.component }}
+  template:
+    metadata:
+      name: {{ .Values.converter.name }}
+      labels:
+        component: {{ .Values.converter.component }}
+    spec:
+      containers:
+        - name: {{ .Values.converter.name }}
+          image: "{{ .Values.converter.image.name }}:{{ .Values.converter.image.version }}"
+          ports:
+            - containerPort: {{ .Values.converter.port }}
+          env:
+            {{- range .Values.rabbitmq.env }}
+              {{- $args := dict "name" $.Values.rabbitmq.name "env" . }}
+              {{- include "env-secret.template" $args | indent 12 }}
+            {{- end }}
+          resources:
+            requests: {{ .Values.converter.limits | toYaml | nindent 14 }}
+            limits: {{ .Values.converter.limits | toYaml | nindent 14 }}

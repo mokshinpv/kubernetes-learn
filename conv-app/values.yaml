@@ -9,3 +9,43 @@ app:
   limits:
     memory: "400Mi"
     cpu: "200m"
+
+api:
+  name: conv-api
+  component: backend
+  port: 3000
+  image:
+    name: antonlarichev/conv-api
+    version: "1.0"
+  limits:
+    memory: "400Mi"
+    cpu: "200m"
+
+converter:
+  name: converter
+  component: converter
+  port: 3000
+  image:
+    name: antonlarichev/conv-service
+    version: "1.0"
+  limits:
+    memory: "400Mi"
+    cpu: "200m"
+
+rabbitmq:
+  name: rabbitmq
+  component: rabbitmq
+  port: 5672
+  managementPort: 15672
+  image:
+    name: rabbitmq
+    version: 4.0.9-management
+  env:
+    - AMQP_EXCHANGE
+    - AMQP_USER
+    - AMQP_PASSWORD
+    - AMQP_HOSTNAME
+    - AMQP_QUEUE
+  limits:
+    memory: "512Mi"
+    cpu: "200m"
